@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fake API Example</title>
+</head>
+<body onload="fetchData()"> <!-- Call fetchData() on page load -->
+  <div id="description"></div>
+
+  <script>
+    function fetchData() {
+      fetch('http://api.balajient.biz/api/getAllDescription')
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          const descriptions = data.data.Description;
+          console.log('descriptions', descriptions);
+
+          // Update the HTML content with the data
+          const descriptionDiv = document.getElementById('description');
+          descriptions.forEach((description) => {
+            const descriptionElement = document.createElement('div');
+            descriptionElement.innerHTML = `
+              <h2>${description.name}</h2>
+              <hr>
+            `;
+            descriptionDiv.appendChild(descriptionElement);
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  </script>
+</body>
+</html>

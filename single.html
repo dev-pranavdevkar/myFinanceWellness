@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>My Finance Wellness </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+    <link rel="stylesheet" href="css/jquery.fancybox.min.css">
+
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+
+    <link rel="stylesheet" href="css/aos.css">
+
+    <link rel="stylesheet" href="css/style.css">
+    
+
+
+
+
+    
+  </head>
+  <body onload="fetchData()"> <!-- Call fetchData() on page load -->
+    <div id="description"></div>
+  
+    <script>
+      function fetchData() {
+        fetch('http://api.balajient.biz/api/getAllDescription')
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then((data) => {
+            description=(data.data.Description);
+            console.log('descriptions', data.data.Description);
+  
+            // Update the HTML content with the data
+            const descriptionDiv = document.getElementById('description');
+            data.data.Description.forEach((description) => {
+              const descriptionDiv = document.createElement('div');
+              descriptionDiv.innerHTML = `
+  
+                <h2>${description.name}</h2>
+               
+                <hr>
+              `;
+              descriptionDiv.appendChild(descriptionDiv);
+            });
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    </script>
+  </body>
+</html>
